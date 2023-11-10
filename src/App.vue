@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <DefaultHeader />
+  <main>
+    <LeftBlock />
+    <MapComponent />
+  </main>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import LeftBlock from "./components/LeftBlock.vue";
+import DefaultHeader from "./components/DefaultHeader.vue";
+import MapComponent from "./components/MapComponent.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    DefaultHeader,
+    MapComponent,
+    LeftBlock,
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+main {
+  position: relative;
+  height: calc(100vh - 70px);
 }
 </style>
