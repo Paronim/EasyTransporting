@@ -15,7 +15,7 @@ button {
   border: none;
   cursor: pointer;
   &:hover {
-    background: #f3f3f3;
+    background: $neutral-lighten;
   }
 }
 </style>

@@ -88,7 +88,7 @@ li a {
   height: 100%;
   cursor: pointer;
   &:hover {
-    background: #f3f3f3;
+    background: $neutral-lighten;
   }
 }
 

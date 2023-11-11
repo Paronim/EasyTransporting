@@ -1,5 +1,5 @@
 <template>
-  <DefaultHeader @open-search="showSearchPopup = true" />
+  <HeaderComponent @open-search="showSearchPopup = true" />
   <main id="main">
     <LeftBlock @open="openRightBlock" />
     <MapComponent />
@@ -11,7 +11,7 @@
 <script setup>
 import LeftBlock from "./components/LeftBlock.vue";
 import RightBlock from "./components/RightBlock.vue";
-import DefaultHeader from "./components/DefaultHeader.vue";
+import HeaderComponent from "./components/Header/HeaderComponent.vue";
 import MapComponent from "./components/MapComponent.vue";
 import PopupSearch from "./components/Popup/PopupSearch.vue";
 
