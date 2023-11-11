@@ -60,7 +60,7 @@ const navigationList = ref([
 ]);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   padding: 16px 0;
   background: #fff;

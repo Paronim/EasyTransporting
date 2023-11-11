@@ -6,6 +6,7 @@
     <RightBlock v-if="showRightBlock" @close="showRightBlock = false" />
   </main>
   <PopupSearch v-if="showSearchPopup" @close="showSearchPopup = false" />
+  <NewNotifications />
 </template>
 
 <script setup>
@@ -16,6 +17,7 @@ import MapComponent from "./components/MapComponent.vue";
 import PopupSearch from "./components/Popup/PopupSearch.vue";
 
 import { ref } from "vue";
+import NewNotifications from "@/components/NewNotifications.vue";
 
 const showRightBlock = ref(false);
 const showSearchPopup = ref(false);

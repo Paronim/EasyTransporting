@@ -1,13 +1,22 @@
 <template>
-  <div class="account">
-    <img src="../../assets/icons/menu.svg" alt="menu" class="icon-menu" />
+  <div class="account" @click="open = !open">
+    <img src="../../assets/icons/menu.svg" alt="Подробнее" class="icon-menu" />
     <img
       src="../../assets/icons/account.svg"
-      alt="account"
+      alt="Аккаунт"
       class="icon-account"
     />
   </div>
+  <!-- Модалка аккаунта -->
+  <ModalAccount v-if="open" @close="open = false" />
 </template>
+
+<script setup>
+import { ref } from "vue";
+import ModalAccount from "@/components/Modal/ModalAccount.vue";
+
+const open = ref(false);
+</script>
 
 <style scoped lang="scss">
 .account {

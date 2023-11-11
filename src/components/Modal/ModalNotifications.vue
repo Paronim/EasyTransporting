@@ -12,7 +12,17 @@
       </div>
     </header>
     <main>
-      <h1>test</h1>
+      <div
+        v-for="notification in notifications"
+        :key="notification.id"
+        class="notification_card"
+      >
+        <p class="notification_card__title" :class="notification.type">
+          {{ notification.name }}
+        </p>
+        <p v-html="notification.text" class="notification_card__text" />
+        <p class="notification_card__date">{{ notification.date }}</p>
+      </div>
     </main>
     <footer>
       <a>Показать все</a>
@@ -21,12 +31,27 @@
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
+import { useStore } from "vuex";
+import { computed, defineEmits, onMounted } from "vue";
 import IconButton from "@/components/IconButton.vue";
+
 defineEmits(["close"]);
+
+const store = useStore();
+
+// Уведомления
+const notifications = computed(() => store.getters.NOTIFICATIONS);
+
+onMounted(() => {
+  setTimeout(() => store.dispatch("READ_NOTIFICATIONS"), 500);
+});
 </script>
 
 <style scoped lang="scss">
+::v-deep(.link) {
+  color: $blue;
+  cursor: pointer;
+}
 .notifications {
   position: absolute;
   background: #fff;
@@ -78,5 +103,36 @@ footer {
   border-top: 1px solid $neutral;
   padding: 16px;
   color: $blue;
+  text-align: center;
+  a {
+    cursor: pointer;
+  }
+}
+
+.notification_card {
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  &__text {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  &__date {
+    font-size: 12px;
+    color: $neutral;
+  }
+}
+.notification_card__title {
+  &.success {
+    color: $green;
+  }
+  &.error {
+    color: $red;
+  }
 }
 </style>

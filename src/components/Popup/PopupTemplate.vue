@@ -41,9 +41,9 @@ defineProps({
 }
 .container {
   position: absolute;
-  top: 30%;
+  top: 200px;
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translateX(-50%);
   width: 100%;
   max-width: v-bind(maxWidth);
   background: #fff;
