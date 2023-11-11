@@ -6,9 +6,14 @@
       :center="[positionWindiwMap.latitude, positionWindiwMap.longitude]"
     >
       <l-tile-layer
-        url="http://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
         name="OpenStreetMap"
+      ></l-tile-layer>
+      <l-tile-layer
+        url="http://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
+        layer-type="standard"
+        name="OpenRailwayMap"
       ></l-tile-layer>
 
       <l-polyline :lat-lngs="way" color="green" />
