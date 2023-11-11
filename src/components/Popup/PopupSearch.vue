@@ -39,7 +39,7 @@ defineEmits(["close"]);
 
 const search = ref(null);
 
-const text = ref("п");
+const text = ref("");
 
 const store = useStore();
 

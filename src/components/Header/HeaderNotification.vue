@@ -21,8 +21,7 @@ const open = ref(false);
 const store = useStore();
 
 // Создаем тестовое уведомление
-store.dispatch("CREATE_NOTIFICATION");
-// setInterval(() => store.dispatch("CREATE_NOTIFICATION"), 1000);
+setTimeout(() => store.dispatch("CREATE_NOTIFICATION"), 3000);
 
 // Счетчик новых уведомлений
 const newNotificationsCounter = computed(

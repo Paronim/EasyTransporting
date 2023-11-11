@@ -27,7 +27,7 @@ const getters = {
 };
 const mutations = {
   ADD_NOTIFICATION: (state, notification) => {
-    state.notifications.push(notification);
+    state.notifications.unshift(notification);
     state.counter += 1;
   },
   UPDATE_NOTIFICATIONS_STATUS: (state, status) => {
@@ -57,7 +57,7 @@ const actions = {
     context.commit("ADD_NOTIFICATION", notification);
     setTimeout(
       () => context.commit("HIDE_NOTIFICATION", notification.id),
-      2000
+      3000
     );
   },
   READ_NOTIFICATIONS: async (context) => {
