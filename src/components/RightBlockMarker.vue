@@ -1,7 +1,7 @@
 <template>
   <div class="container shadow">
     <div class="container__header">
-      <IconButton class="button__close" @click="$emit('close')">
+      <IconButton class="button__close" @click="$emit('closeMarker')">
         <img src="@/assets/icons/close.svg" alt="Закрыть" />
       </IconButton>
     </div>
@@ -12,7 +12,7 @@
 import { defineEmits } from "vue";
 import IconButton from "@/components/IconButton.vue";
 
-defineEmits(["close"]);
+defineEmits(["closeMarker"]);
 </script>
 
 <style scoped lang="scss">

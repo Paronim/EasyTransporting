@@ -1,5 +1,8 @@
 <template>
-  <div :style="{ height: screenHeight + 'px', width: screenWidth + 'px' }">
+  <div
+    class="map"
+    :style="{ height: screenHeight + 'px', width: screenWidth + 'px' }"
+  >
     <l-map
       ref="map"
       :zoom="zoom"
@@ -19,9 +22,11 @@
       <l-polyline :lat-lngs="way" color="green" />
 
       <div v-for="station in stations" :key="station.id">
-        <l-marker :lat-lng="[station.latitude, positionWindiwMap.longitude]">
+        <l-marker
+          :lat-lng="[station.latitude, positionWindiwMap.longitude]"
+          @click="$emit('openRightBlock')"
+        >
           <l-icon :icon-url="iconMarker" :icon-size="[40, 40]" />
-          <l-popup> Hi! You can drag me around! </l-popup>
         </l-marker>
       </div>
     </l-map>
@@ -32,13 +37,12 @@
 import "leaflet/dist/leaflet.css";
 import {
   LPolyline,
-  LPopup,
   LIcon,
   LMarker,
   LMap,
   LTileLayer,
 } from "@vue-leaflet/vue-leaflet";
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import iconMarker from "/src/assets/icons/marker.svg";
 import elevation from "/src/fetch/map.js";
 
@@ -63,6 +67,8 @@ const stations = ref([
 const way = ref(await elevation());
 
 console.log(way.value);
+
+defineEmits(["openRightBlock"]);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -80,5 +86,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.map {
+  position: absolute;
+  z-index: 1;
 }
 </style>

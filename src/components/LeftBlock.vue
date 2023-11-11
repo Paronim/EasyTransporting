@@ -67,6 +67,7 @@ const navigationList = ref([
   height: 100%;
   position: absolute;
   transition: width 2s;
+  z-index: 2;
   &.open {
     min-width: 300px;
   }
@@ -113,6 +114,7 @@ li a {
   background: url("@/assets/icons/down.svg");
   background-size: 24px 24px;
   transition: 0.25s;
+  z-index: 2;
 }
 
 .overflow-link.open:after {
