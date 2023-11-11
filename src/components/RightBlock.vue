@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container shadow">
     <div class="container__header">
       <IconButton class="button__close" @click="$emit('close')">
         <img src="@/assets/icons/close.svg" alt="Закрыть" />

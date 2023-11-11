@@ -9,7 +9,7 @@
     </ul>
 
     <div class="actions">
-      <IconButton>
+      <IconButton @click="$emit('openSearch')">
         <img src="@/assets/icons/search.svg" alt="search" />
       </IconButton>
       <IconButton>
@@ -28,7 +28,10 @@
 </template>
 
 <script setup>
+import { defineEmits } from "vue";
 import IconButton from "@/components/IconButton.vue";
+
+defineEmits(["openSearch"]);
 </script>
 
 <style scoped lang="scss">
