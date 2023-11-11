@@ -1,23 +1,23 @@
 <template>
   <DefaultHeader />
   <main>
-    <LeftBlock />
+    <LeftBlock @open="openRightBlock" />
     <MapComponent />
+    <RightBlock v-if="showRightBlock" @close="showRightBlock = false" />
   </main>
 </template>
 
-<script>
+<script setup>
 import LeftBlock from "./components/LeftBlock.vue";
+import RightBlock from "./components/RightBlock.vue";
 import DefaultHeader from "./components/DefaultHeader.vue";
 import MapComponent from "./components/MapComponent.vue";
+import { ref } from "vue";
 
-export default {
-  name: "App",
-  components: {
-    DefaultHeader,
-    MapComponent,
-    LeftBlock,
-  },
+const showRightBlock = ref(false);
+
+const openRightBlock = () => {
+  showRightBlock.value = true;
 };
 </script>
 
