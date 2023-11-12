@@ -30,12 +30,6 @@ export async function stationsFetch() {
 }
 
 export async function elevation(staytions) {
-  // let staytion =
-  //   "52.254879764851815%2C35.390496687661155%2C52.30004222783012%2C35.48104806400393";
-
-  // let first = staytionFirst.join().replace(",", "%2C");
-  // let second = stationsSecond.join().replace(",", "%2C");
-
   let dataСoordinates = "";
 
   staytions.forEach((element) => {
