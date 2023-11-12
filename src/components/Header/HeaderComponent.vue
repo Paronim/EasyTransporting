@@ -4,8 +4,14 @@
       <li>Карта</li>
       <li>Расписание</li>
       <li>Станции</li>
-      <li>Текст</li>
-      <li>Текст</li>
+      <li>
+        Цифровой вагон
+        <img src="@/assets/icons/open.svg" alt="В новой вкладке" />
+      </li>
+      <li>
+        Оптимизатор
+        <img src="@/assets/icons/open.svg" alt="В новой вкладке" />
+      </li>
     </ul>
 
     <div class="actions">
@@ -44,12 +50,22 @@ ul {
 }
 
 ul li {
-  display: inline-block;
   padding: 0 20px;
   list-style: none;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+  }
   &:not(:last-child) {
     border-right: 1px solid $neutral;
   }
