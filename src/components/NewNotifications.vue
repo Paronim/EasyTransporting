@@ -7,9 +7,6 @@
     >
       <p class="title" :class="notification.type">
         {{ notification.name }}
-        <IconButton class="button__close">
-          <img src="@/assets/icons/close.svg" alt="Закрыть" />
-        </IconButton>
       </p>
       <p v-html="notification.text" class="text" />
     </div>
@@ -19,7 +16,6 @@
 <script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import IconButton from "@/components/IconButton.vue";
 
 const store = useStore();
 
@@ -60,16 +56,6 @@ const notifications = computed(() => store.getters.NEW_NOTIFICATIONS);
   &::v-deep(.link) {
     color: $blue;
     cursor: pointer;
-  }
-}
-
-.button__close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  img {
-    height: 20px;
-    width: 20px;
   }
 }
 </style>
