@@ -14,21 +14,7 @@
         layer-type="standard"
         name="OpenRailwayMap"
       ></l-tile-layer>
-      <div v-for="way of ways" :key="way.index">
-        <l-polyline :lat-lngs="way" color="green" />
-      </div>
-      <!-- <div v-for="way of ways2" :key="way.index">
-        <l-polyline :lat-lngs="way" color="green" />
-      </div>
-      <div v-for="way of ways3" :key="way.index">
-        <l-polyline :lat-lngs="way" color="green" />
-      </div>
-      <div v-for="way of ways4" :key="way.index">
-        <l-polyline :lat-lngs="way" color="green" />
-      </div>
-      <div v-for="way of ways5" :key="way.index">
-        <l-polyline :lat-lngs="way" color="green" />
-      </div> -->
+
       <div v-if="dataTrains">
         <div v-for="stations in dataTrains.values()" :key="stations.key">
           <div v-for="station in stations" :key="station.index">
@@ -38,6 +24,8 @@
           </div>
         </div>
       </div>
+
+      <l-polyline :lat-lngs="ways" color="red" :weight="10" />
     </l-map>
   </div>
 </template>
@@ -60,7 +48,7 @@ const screenHeight = ref(window.screen.height);
 
 const zoom = ref(14);
 
-const positionWindiwMap = ref([68.972, 33.0694]);
+const positionWindiwMap = ref([53.3901, 83.9307]);
 
 const dataTrains = ref(new Map([]));
 const ar = [];
@@ -75,42 +63,8 @@ await stationsFetch().then(async (result) => {
   });
 });
 
-const ways = ref([]);
-
-dataTrains.value.forEach((element) => {
-  element.forEach(async (el, i) => {
-    if (i !== element.length - 1)
-      ways.value.push(await elevation(el, element[i + 1]));
-  });
-});
-// await dataTrains.value.forEach((element) => {
-//   let sl = element.slice((element.length / 5) * 3, element.length / 5);
-//   sl.forEach(async (el, i) => {
-//     ways2.value.push(await elevation(el, element[i + 1]));
-//     i++;
-//   });
-// });
-// await dataTrains.value.forEach((element) => {
-//   let sl = element.slice((element.length / 5) * 2, (element.length / 5) * 2);
-//   sl.forEach(async (el, i) => {
-//     ways3.value.push(await elevation(el, element[i + 1]));
-//     i++;
-//   });
-// });
-// await dataTrains.value.forEach((element) => {
-//   let sl = element.slice(element.length / 5, (element.length / 5) * 3);
-//   sl.forEach(async (el, i) => {
-//     ways4.value.push(await elevation(el, element[i + 1]));
-//     i++;
-//   });
-// });
-// await dataTrains.value.forEach((element) => {
-//   let sl = element.slice(0, (element.length / 5) * 4);
-//   sl.forEach(async (el, i) => {
-//     ways5.value.push(await elevation(el, element[i + 1]));
-//     i++;
-//   });
-// });
+const ways = ref(await elevation(dataTrains.value));
+console.log(ways.value);
 
 for (let i = 0; i < dataTrains.value.length; i++) {
   if (dataTrains.value.length / 2 === i + 1)
