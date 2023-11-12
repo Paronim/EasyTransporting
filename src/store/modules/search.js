@@ -11,7 +11,7 @@ const state = {
     {
       id: 1343,
       name: "Грузовой поезд Уфа - Казань",
-      type: "train", // warehouse, container, train
+      type: "train",
       status: "В пути",
       containers: "40 вагонов",
     },
@@ -21,6 +21,34 @@ const state = {
       type: "train",
       status: "В пути",
       containers: "45 вагонов",
+    },
+    {
+      id: 687,
+      name: "Полувагон #687",
+      type: "container",
+      status: "В пути",
+      weight: "41 т",
+      train: "Грузовой поезд #1333",
+    },
+    {
+      id: 2,
+      name: "Железнодорожный вокзал Казань-1",
+      type: "warehouse",
+      status: "Круглосуточно",
+      opacity: {
+        status: "middle",
+        text: "Нагруженность (56%)",
+      },
+    },
+    {
+      id: 2,
+      name: "Железнодорожный вокзал Раевский",
+      type: "warehouse",
+      status: "08:00 - 20:00",
+      opacity: {
+        status: "low",
+        text: "Нагруженность (35%)",
+      },
     },
   ],
 };
