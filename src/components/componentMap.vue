@@ -3,11 +3,7 @@
     class="map"
     :style="{ height: screenHeight + 'px', width: screenWidth + 'px' }"
   >
-    <l-map
-      ref="map"
-      :zoom="zoom"
-      :center="[positionWindiwMap.latitude, positionWindiwMap.longitude]"
-    >
+    <l-map ref="map" :zoom="zoom" :minZoom="4" :center="positionWindiwMap">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
@@ -18,16 +14,29 @@
         layer-type="standard"
         name="OpenRailwayMap"
       ></l-tile-layer>
-
-      <l-polyline :lat-lngs="way" color="green" />
-
-      <div v-for="station in stations" :key="station.id">
-        <l-marker
-          :lat-lng="[station.latitude, positionWindiwMap.longitude]"
-          @click="$emit('openRightBlock')"
-        >
-          <l-icon :icon-url="iconMarker" :icon-size="[40, 40]" />
-        </l-marker>
+      <div v-for="way of ways" :key="way.index">
+        <l-polyline :lat-lngs="way" color="green" />
+      </div>
+      <!-- <div v-for="way of ways2" :key="way.index">
+        <l-polyline :lat-lngs="way" color="green" />
+      </div>
+      <div v-for="way of ways3" :key="way.index">
+        <l-polyline :lat-lngs="way" color="green" />
+      </div>
+      <div v-for="way of ways4" :key="way.index">
+        <l-polyline :lat-lngs="way" color="green" />
+      </div>
+      <div v-for="way of ways5" :key="way.index">
+        <l-polyline :lat-lngs="way" color="green" />
+      </div> -->
+      <div v-if="dataTrains">
+        <div v-for="stations in dataTrains.values()" :key="stations.key">
+          <div v-for="station in stations" :key="station.index">
+            <l-marker :lat-lng="station" @click="$emit('openRightBlock')">
+              <l-icon :icon-url="iconMarker" :icon-size="[40, 40]" />
+            </l-marker>
+          </div>
+        </div>
       </div>
     </l-map>
   </div>
@@ -44,34 +53,73 @@ import {
 } from "@vue-leaflet/vue-leaflet";
 import { ref, defineEmits } from "vue";
 import iconMarker from "/src/assets/icons/marker.svg";
-import elevation from "/src/fetch/map.js";
+import { elevation, stationsFetch } from "/src/fetch/map.js";
 
 const screenWidth = ref(window.screen.width);
 const screenHeight = ref(window.screen.height);
 
-const zoom = ref(18);
+const zoom = ref(14);
 
-const positionWindiwMap = ref({
-  longitude: 35.398,
-  latitude: 52.2924,
+const positionWindiwMap = ref([68.972, 33.0694]);
+
+const dataTrains = ref(new Map([]));
+const ar = [];
+await stationsFetch().then(async (result) => {
+  console.log(result);
+  await result.forEach((el, i) => {
+    ar.push([
+      Number(String(el.LATITUDE).replace(",", ".")),
+      Number(String(el.LONGITUDE).replace(",", ".")),
+    ]);
+    if (result.length === i + 1) dataTrains.value.set(el.TRAIN_INDEX, ar);
+  });
 });
 
-const stations = ref([
-  { id: 1, longitude: 35.398, latitude: 52.2924 },
-  { id: 2, longitude: 35.4253, latitude: 52.2727 },
-  { id: 3, longitude: 35.2722, latitude: 51.9356 },
-  { id: 4, longitude: 35.3185, latitude: 52.162 },
-  { id: 5, longitude: 35.1594, latitude: 52.0647 },
-]);
+const ways = ref([]);
 
-const way = ref(await elevation());
+dataTrains.value.forEach((element) => {
+  element.forEach(async (el, i) => {
+    if (i !== element.length - 1)
+      ways.value.push(await elevation(el, element[i + 1]));
+  });
+});
+// await dataTrains.value.forEach((element) => {
+//   let sl = element.slice((element.length / 5) * 3, element.length / 5);
+//   sl.forEach(async (el, i) => {
+//     ways2.value.push(await elevation(el, element[i + 1]));
+//     i++;
+//   });
+// });
+// await dataTrains.value.forEach((element) => {
+//   let sl = element.slice((element.length / 5) * 2, (element.length / 5) * 2);
+//   sl.forEach(async (el, i) => {
+//     ways3.value.push(await elevation(el, element[i + 1]));
+//     i++;
+//   });
+// });
+// await dataTrains.value.forEach((element) => {
+//   let sl = element.slice(element.length / 5, (element.length / 5) * 3);
+//   sl.forEach(async (el, i) => {
+//     ways4.value.push(await elevation(el, element[i + 1]));
+//     i++;
+//   });
+// });
+// await dataTrains.value.forEach((element) => {
+//   let sl = element.slice(0, (element.length / 5) * 4);
+//   sl.forEach(async (el, i) => {
+//     ways5.value.push(await elevation(el, element[i + 1]));
+//     i++;
+//   });
+// });
 
-console.log(way.value);
+for (let i = 0; i < dataTrains.value.length; i++) {
+  if (dataTrains.value.length / 2 === i + 1)
+    positionWindiwMap.value = dataTrains.value[i].value;
+}
 
 defineEmits(["openRightBlock"]);
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
